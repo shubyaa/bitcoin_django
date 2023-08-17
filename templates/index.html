@@ -1,0 +1,300 @@
+{% extends 'base.html' %} {% load static %} {% block nav_item_dashboard %}active{% endblock nav_item_dashboard%}
+<!DOCTYPE html>
+<html lang="en">
+
+{% block head %}
+<title>Home</title>
+{% endblock %} {% block body %}
+
+<body>
+    <div class="layer"></div>
+    <!-- ! Body -->
+    <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
+    <div class="main-wrapper">
+
+        <!-- ! Main -->
+        <main class="main users chart-page" id="skip-target">
+            <div class="container">
+                <h2 class="main-title">Dashboard</h2>
+                <div class="row stat-cards">
+                    <div class="col-md-6 col-xl-3">
+                        <article class="stat-cards-item">
+                            <div class="stat-cards-icon primary">
+                                <i data-feather="bar-chart-2" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-cards-info">
+                                <p class="stat-cards-info__num">1478 286</p>
+                                <p class="stat-cards-info__title">Total visits</p>
+                                <p class="stat-cards-info__progress">
+                                    <span class="stat-cards-info__profit success">
+                    <i data-feather="trending-up" aria-hidden="true"></i>4.07%
+                  </span> Last month
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <article class="stat-cards-item">
+                            <div class="stat-cards-icon warning">
+                                <i data-feather="file" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-cards-info">
+                                <p class="stat-cards-info__num">1478 286</p>
+                                <p class="stat-cards-info__title">Total visits</p>
+                                <p class="stat-cards-info__progress">
+                                    <span class="stat-cards-info__profit success">
+                    <i data-feather="trending-up" aria-hidden="true"></i>0.24%
+                  </span> Last month
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <article class="stat-cards-item">
+                            <div class="stat-cards-icon purple">
+                                <i data-feather="file" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-cards-info">
+                                <p class="stat-cards-info__num">1478 286</p>
+                                <p class="stat-cards-info__title">Total visits</p>
+                                <p class="stat-cards-info__progress">
+                                    <span class="stat-cards-info__profit danger">
+                    <i data-feather="trending-down" aria-hidden="true"></i>1.64%
+                  </span> Last month
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <article class="stat-cards-item">
+                            <div class="stat-cards-icon success">
+                                <i data-feather="feather" aria-hidden="true"></i>
+                            </div>
+                            <div class="stat-cards-info">
+                                <p class="stat-cards-info__num">1478 286</p>
+                                <p class="stat-cards-info__title">Total visits</p>
+                                <p class="stat-cards-info__progress">
+                                    <span class="stat-cards-info__profit warning">
+                    <i data-feather="trending-up" aria-hidden="true"></i>0.00%
+                  </span> Last month
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="chart">
+                            {% for nums in nums %} {% endfor %}
+                            <canvas id="myChart" aria-label="Site statistics" role="img"></canvas>
+                        </div>
+                        <div class="users-table table-wrapper">
+                            <table class="posts-table">
+                                <thead>
+                                    <tr class="users-table-info">
+                                        <th>Sparkline</th>
+                                        <th>Name</th>
+                                        <th>Symbol</th>
+                                        <th>Price</th>
+                                        <th>Updated at</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in numbers %}
+                                    <tr>
+                                        <td>
+
+                                            <input type="checkbox" class="check">
+                                            <div class="categories-table-img">
+                                                <picture>
+                                                    <source srcset="{{item.sparkline}}" type="image/webp"><img src="{{item.sparkline}}" alt="category"></picture>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <b>
+                                                {{item.id | title}}
+                                            </b>
+                                        </td>
+                                        <td>
+                                            <div class="pages-table-img">
+                                                <picture>
+                                                    <source srcset="{{item.image}}" type="image/webp"><img loading="lazy" src="{% static 'img/avatar/avatar-face-03.png' %}" alt="User Name"></picture>
+                                                {{item.price}}
+                                            </div>
+                                        </td>
+                                        <td><span>₹ {{item.current_price}}</span></td>
+                                        <td>{{item.last_updated}}</td>
+                                        <td>
+                                            <span class="p-relative">
+                        <button class="dropdown-btn transparent-btn" type="button" title="More info">
+                          <div class="sr-only">More info</div>
+                          <i data-feather="more-horizontal" aria-hidden="true"></i>
+                        </button>
+                        <ul class="users-item-dropdown dropdown">
+                          <li><a href="##">Edit</a></li>
+                          <li><a href="##">Quick edit</a></li>
+                          <li><a href="##">Trash</a></li>
+                        </ul>
+                      </span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p style="color: #7e7e7e;" class="info-p-tag">Showing Page {{numbers.start_index}} to {{numbers.end_index}} of {{paginator.count}}</p>
+                        <div class="d-flex justify-content-between p-3">
+                            {% if numbers.has_previous %}
+
+                            <a class="btn btn-primary" href="?page={{ numbers.previous_page_number }}">Previous</a> {% endif %} {% if numbers.has_next %}
+                            <a class="btn btn-primary" href="?page={{ numbers.next_page_number }}">Next</a> {% endif %}
+                        </div>
+
+
+                    </div>
+                    <div class="col-lg-3">
+                        <article class="customers-wrapper">
+
+                            <canvas id="customersChart" aria-label="Customers statistics" role="img"></canvas>
+                            <!--              <p class="customers__title">New Customers <span>+958</span></p>
+              <p class="customers__date">28 Daily Avg.</p>
+              <picture><source srcset="./img/svg/customers.svg" type="image/webp"><img src="./img/svg/customers.svg" alt=""></picture> -->
+                        </article>
+                        <article class="white-block">
+                            <div class="top-cat-title">
+                                <h3>Top categories</h3>
+                                <p>28 Categories, 1400 Posts</p>
+                            </div>
+                            <ul class="top-cat-list">
+                                <li>
+                                    <a href="##">
+                                        <div class="top-cat-list__title">
+                                            Lifestyle <span>8.2k</span>
+                                        </div>
+                                        <div class="top-cat-list__subtitle">
+                                            Dailiy lifestyle articles <span class="purple">+472</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="##">
+                                        <div class="top-cat-list__title">
+                                            Tutorials <span>8.2k</span>
+                                        </div>
+                                        <div class="top-cat-list__subtitle">
+                                            Coding tutorials <span class="blue">+472</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="##">
+                                        <div class="top-cat-list__title">
+                                            Technology <span>8.2k</span>
+                                        </div>
+                                        <div class="top-cat-list__subtitle">
+                                            Dailiy technology articles <span class="danger">+472</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="##">
+                                        <div class="top-cat-list__title">
+                                            UX design <span>8.2k</span>
+                                        </div>
+                                        <div class="top-cat-list__subtitle">
+                                            UX design tips <span class="success">+472</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="##">
+                                        <div class="top-cat-list__title">
+                                            Interaction tips <span>8.2k</span>
+                                        </div>
+                                        <div class="top-cat-list__subtitle">
+                                            Interaction articles <span class="warning">+472</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="##">
+                                        <div class="top-cat-list__title">
+                                            App development <span>8.2k</span>
+                                        </div>
+                                        <div class="top-cat-list__subtitle">
+                                            Mobile development articles <span class="warning">+472</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="##">
+                                        <div class="top-cat-list__title">
+                                            Nature <span>8.2k</span>
+                                        </div>
+                                        <div class="top-cat-list__subtitle">
+                                            Wildlife animal articles <span class="warning">+472</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="##">
+                                        <div class="top-cat-list__title">
+                                            Geography <span>8.2k</span>
+                                        </div>
+                                        <div class="top-cat-list__subtitle">
+                                            Geography articles <span class="primary">+472</span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </article>
+                        <!-- News Article -->
+                        <article class="white-block">
+                            <div class="top-cat-title">
+                                <h3>Top News</h3>
+                                <p> News Today</p>
+                            </div>
+                            <ul class="top-cat-list">
+                                {% for item in news_list %}
+
+                                <li>
+                                    <a target="_blank" href="{{item.link}}">
+                                        <div class="d-flex flex-column">
+                                            <div>
+                                                <img class="img-thumbnail" src="{{item.media}}" alt="">
+                                            </div>
+                                            <div>
+                                                <div class="top-cat-list__title">
+                                                    {{item.title | slice:35}} ... <span>8.2k</span>
+                                                </div>
+                                                <div class="top-cat-list__subtitle">
+                                                    {{item.summary | slice:42 }} ... <span class="purple">+472</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                {% endfor %}
+
+                            </ul>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+    <!-- Chart library -->
+    <script src="{% static 'plugins/chart.min.js' %}"></script>
+    <!-- Icons library -->
+    <script src="{% static 'plugins/feather.min.js' %}"></script>
+    <!-- Custom scripts -->
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+{% endblock %}
+
+
+</html>

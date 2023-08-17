@@ -1,0 +1,1 @@
+{% autoescape off %} Hi, {{user.username}}, <br>Please click the below link to verify your account, http://{{domain}}{% url 'accounts:send_mail' uidb64=uid token=token %} {% endautoescape %}
